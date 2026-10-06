@@ -1,8 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, abort, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import random, string
-from flask import redirect, abort
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///urls.db'
@@ -39,6 +38,21 @@ def redirect_url(code):
         return redirect(url_entry.original_url)
     else:
         abort(404)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    short_url = None
+    if request.method == 'POST':
+        long_url = request.form.get('long_url')
+
+        code = generate_code()
+        new_url = URL(original_url=long_url, short_code=code)
+        db.session.add(new_url)
+        db.session.commit()
+
+        short_url = f'http://localhost:5000/{code}'
+
+    return render_template('index.html', short_url=short_url)
 
 if __name__ == '__main__':
     app.run(debug=True)
