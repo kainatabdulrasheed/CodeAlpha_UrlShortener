@@ -8,6 +8,7 @@ Built as part of the CodeAlpha Backend Development Internship.
 - Generate a short code for any long URL
 - Redirect from short URL to the original long URL
 - URL mappings stored in a SQLite database
+- Basic web interface to shorten URLs directly from the browser
 
 ## Tech Stack
 - Python
@@ -59,6 +60,12 @@ Response:
   "short_url": "http://localhost:5000/aB3xZ9"
 }
 ```
+## Web Interface
+
+Visit `http://localhost:5000/` in your browser to use the URL shortener through a simple form — paste a long URL, click **Shorten**, and the shortened link appears below the form.
+
+## Screenshot
+![URL Shortener UI](screenshot.png)
 
 ### Access the original URL
 Visit the short URL in a browser (e.g. `http://localhost:5000/aB3xZ9`) — you'll be redirected to the original long URL.
